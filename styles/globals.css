@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+  body {
+    @apply bg-color-bg;
+    /* @apply font-sans; */
+  }
+  h1 {
+    @apply text-xl sm:text-4xl md:text-5xl font-bold text-color-primary-dark;
+  }
+  h2 {
+    @apply text-lg sm:text-2xl md:text-4xl text-color-primary-dark;
+  }
+  h3 {
+    @apply text-base sm:text-xl md:text-2xl text-color-primary-dark;
+  }
+  h4 {
+    @apply text-base sm:text-lg text-color-primary-dark;
+  }
+}
+
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  src: local('Roboto'), url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap), format(ttf);
+}
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
