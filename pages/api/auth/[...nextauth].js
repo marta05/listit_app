@@ -1,21 +1,21 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google'
-import EmailProvider from 'next-auth/providers/email'
 import GitHubProvider from 'next-auth/providers/github'
+import CredentialsProvider from "next-auth/providers/credentials";
 
 
 const options = {
     providers: [
         CredentialsProvider({
             // The name to display on the sign in form (e.g. 'Sign in with...')
-            name: 'Sign in',
+            name: 'your credentials',
             // The credentials is used to generate a suitable form on the sign in page.
             // You can specify whatever fields you are expecting to be submitted.
             // e.g. domain, username, password, 2FA token, etc.
             // You can pass any HTML attribute to the <input> tag through the object.
             credentials: {
-                username: {type: "text", placeholder: "username" },
-                email: {type: "text", placeholder: "email"},
+                email: {type: "text", placeholder: "email" },
+                // email: {type: "text", placeholder: "email"},
                 password: {type: "password", placeholder: "password" }
             },
             async authorize(credentials, req) {
@@ -51,10 +51,36 @@ const options = {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         }),
   ],
-  pages: {
-    signIn: 'api/auth/signup',
+//   callbacks: {
+//     jwt: ({ token, user }) => {
+//       // first time jwt callback is run, user object is available
+//       if (user) {
+//         token.id = user.id;
+//       }
+
+//       return token;
+//     },
+//     session: ({ session, token }) => {
+//       if (token) {
+//         session.id = token.id;
+//       }
+
+//       return session;
+//     },
+//   },
+  jwt: {
+    secret: process.env.JWT_SECRET
   },
-  // A database is optional, but required to persist accounts.
-  // database: process.env.DATABASE_URL,
+  session:{
+      jwt: true,
+      maxAge: 30*60*60*24, //30 days days
+      secret: process.env.SECRET
+  },
+  database: process.env.DATABASE_URL,
+  debug: process.env.NODE_ENV === "development",
+  secret: process.env.SECRET,
+  pages: {
+      signIn: '/api/auth/signin'
+  }
 };
 export default NextAuth(options);

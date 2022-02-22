@@ -4,26 +4,34 @@ import axios from 'axios'
 import ItemInput from '../../components/TextInputs/ItemInput'
 import ButtonMain from '../../components/Buttons/ButtonMain'
 import ListIcon from '../../components/Icons/ListIcon'
+import { useSession, getSession, signIn, signOut } from 'next-auth/react';
+// import db from '../../lib/db'
+
 
 export default function Lists() {
   const [lists, setLists] = useState('')
   const [listId, setListId] = useState('')
   const [editList, setEditList] = useState(false)
 
-  // useEffect(() => {
-  //   if (userId == undefined || userId == '') {
-  //     setLists([])
-  //   } else {
-  //     try {
-  //       axios.get('/api/lists', { params: { userId } }).then((res) => {
-  //         setLists(res.data)
-  //       })
-  //     } catch (err) {
-  //       console.log(err)
-  //       setLists([])
-  //     }
-  //   }
-  // }, [])
+
+  const { data: session } = useSession();
+
+  console.log(session)
+
+  useEffect(() => {
+    // if (userId == undefined || userId == '') {
+    //   setLists([])
+    // } else {
+      try {
+        axios.get('/api/lists').then((res) => {
+          setLists(res.data)
+        })
+      } catch (err) {
+        console.log(err)
+        setLists([])
+      }
+    // }
+  }, [])
 
   // useEffect(() => {
   //   try {
@@ -113,4 +121,12 @@ const deleteList = (listId) => {
       <ItemInput lists={lists} setLists={setLists} listId={listId} setListId={setListId} />
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      session: await getSession(context),
+    },
+  }
 }

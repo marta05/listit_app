@@ -16,7 +16,7 @@ export default function Layout({ children }) {
   return (
     <div className='flex flex-col h-screen'>
     <div className='bg-slate-900 h-20'>
-    <div className='container mx-auto w-8/12 flex justify-between items-center h-20'>
+    <div className='container mx-auto w-9/12 flex justify-between items-center h-20'>
         <div className='flex justify-start items-center h-2'>
             <a onClick={handleClick} className='hover:cursor-pointer'>
               <Image src={Listit} width='120px' height='40%' />
@@ -27,8 +27,9 @@ export default function Layout({ children }) {
             LISTS
           </a>
           {/* DON'T SHOW LISTS ON TOP UNTIL USER LOGS IN */}
-          <a className='text-color-primary-light cursor-pointer' onClick={() => setShowModal(true)}>
-            LOGIN
+          <a className='text-color-primary-light cursor-pointer' 
+          onClick={() => setShowModal(!showModal)}>
+            SIGN IN
           </a>
           {/* ADD LOGOUT FUNCTIONALITY E.G. getserversideprops, check if session opened and token stored in cookies, if yes the show LOGOUT */}
           <Modal
@@ -40,10 +41,9 @@ export default function Layout({ children }) {
         </div>
       </div>
     </div>
-      <div className='container mx-auto w-8/12 mb-auto my-2'>
+      <div id="modal-root" className='container mx-auto w-9/12 mb-auto my-2'>
       {children}
       
-      <div id="modal-root"></div>
       </div>
     <div className='bg-slate-900 h-20 mb-0 static'>
       

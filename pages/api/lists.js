@@ -1,17 +1,31 @@
 import db from '../../lib/db';
+import { getToken } from "next-auth/jwt"
 
-export default function handler(req, res){
+
+const secret = process.env.SECRET
+
+export default async function handler(req, res){
   if(req.method === "GET"){
-    const {userId} = req.query
 
-    db.query('SELECT "list".id as list_id, "list".name as list_name, "user".id as user_id, "user".name as user_name FROM "list" LEFT JOIN "user" ON "user".id = "list".user_id WHERE user_id = $1',[userId],(err, result) => {
-      if(err){
-        res.status(500).json({message: 'Error getting lists' + err})
-      } else {
-        res.status(200).send(result.rows)
-        // console.log(result.rows)
-      }
-    })
+    const token = await getToken({ req, secret })
+    if (token) {
+      // Signed in
+      console.log("JSON Web Token", JSON.stringify(token, null, 2))
+    } else {
+      // Not Signed in
+      res.status(401)
+    }
+    res.end()
+    // const {userId} = req.query
+
+    // db.query('SELECT "list".id as list_id, "list".name as list_name, "user".id as user_id, "user".name as user_name FROM "list" LEFT JOIN "user" ON "user".id = "list".user_id WHERE user_id = $1',[userId],(err, result) => {
+    //   if(err){
+    //     res.status(500).json({message: 'Error getting lists' + err})
+    //   } else {
+    //     res.status(200).send(result.rows)
+    //     // console.log(result.rows)
+    //   }
+    // })
   }
 
   if(req.method === "POST"){
@@ -57,3 +71,4 @@ export default function handler(req, res){
       }
     })}
 }
+
