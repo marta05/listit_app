@@ -1,9 +1,6 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-// import db from '../lib/db'
 import router from 'next/router';
-// import {useContext} from 'react';
-// import {UserContext} from '../context/Provider';
 import Modal from '../components/Modal/modal';
 import Visibility from '../components/Icons/Visibility'
 
@@ -35,8 +32,6 @@ const handleSubmission = async () => {
   }
   
 
-  
-
   return (
     <div className="flex flex-col sm:justify-between mt-10 md:mt-16 sm:w-full sm:flex-row">
       <div className="flex flex-col items-center sm:h-24 text-center sm:w-2/5 sm:pr-10">
@@ -50,7 +45,7 @@ const handleSubmission = async () => {
                         type="text"
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="name"
-                        placeholder="user name" 
+                        placeholder="username" 
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
                         />
@@ -116,18 +111,3 @@ const handleSubmission = async () => {
     </div>
   )
 }
-
-
-// export async function getServerSideProps(context) {
-
-//   try {
-//     const data = await db.query('SELECT email FROM "user"')
-//     .then(res => res.rows)
-
-//     return {
-//       props: {data}
-//     }
-//   } catch(err){
-//     console.log(err)
-//   }
-// }

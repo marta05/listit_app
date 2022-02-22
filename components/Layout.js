@@ -31,7 +31,6 @@ export default function Layout({ children }) {
             LOGIN
           </a>
           {/* ADD LOGOUT FUNCTIONALITY E.G. getserversideprops, check if session opened and token stored in cookies, if yes the show LOGOUT */}
-
           <Modal
             onClose={() => setShowModal(false)}
             show={showModal}
@@ -43,6 +42,8 @@ export default function Layout({ children }) {
     </div>
       <div className='container mx-auto w-8/12 mb-auto my-2'>
       {children}
+      
+      <div id="modal-root"></div>
       </div>
     <div className='bg-slate-900 h-20 mb-0 static'>
       

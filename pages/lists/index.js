@@ -1,13 +1,11 @@
 import router from 'next/router'
 import { useState, useEffect } from 'react'
-// import { UserContext } from '../../context/Provider'
 import axios from 'axios'
 import ItemInput from '../../components/TextInputs/ItemInput'
 import ButtonMain from '../../components/Buttons/ButtonMain'
 import ListIcon from '../../components/Icons/ListIcon'
 
 export default function Lists() {
-  // const { userId, userName } = useContext(UserContext)
   const [lists, setLists] = useState('')
   const [listId, setListId] = useState('')
   const [editList, setEditList] = useState(false)
